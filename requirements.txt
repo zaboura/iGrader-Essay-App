@@ -1,5 +1,5 @@
 
-#conda create --name igrade-env pyhon=3.6
+#conda create --name igrader-essay-env pyhon=3.6
 numpy==1.17 
 scipy==1.5.4
 pandas==1.1.4

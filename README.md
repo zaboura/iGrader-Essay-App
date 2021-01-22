@@ -1,6 +1,6 @@
 # iGrader Essay
 
-![alt text] (https://github.com/zaboura/iGrader-Essay-App/blob/master/static/img/logo.png?raw=true)
+![logo] (static/img/logo.png)
 
 ## Automated Grading System for everyone
 
@@ -15,9 +15,9 @@ IGrader Essay is an Automated Essay Grading systems platform based on AI, it is 
 ## Use case example
 
 
-Solarized dark             |  Solarized Ocean
+Input section              |  Results section
 :-------------------------:|:-------------------------:
-![](https://...Dark.png)  |  ![](https://...Ocean.png)
+![](static/img/Front.png)  |  ![](static/img/Results)
 
 ## Why *Igrader Essay* is different?
 
@@ -55,7 +55,7 @@ At the end run the application locally:
 ```
 python app.py
 ```
-The default develpment URL is 
+The default develpment URL is ```http://0.0.0.0:5000/``` 
 
 ## Built With
 
