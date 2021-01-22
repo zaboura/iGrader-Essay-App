@@ -7,9 +7,18 @@
 IGrader Essay is an Automated Essay Grading systems platform based on AI, it is a tool that can help you grade essays in English. It is used in conjunction or even independently of a human grader. Handy for busy teachers, or to students having doubts. It needs your essay and its prompt, to give your deserved grade and some feedback. Released in 2021, by motivated students in France, it is a friend who is never tired to help with your essays.
 
 
-Input section           |  Results section
-:-------------------------:|:-------------------------:
-<div style="text-align:center"><img src="static/img/Front.png" alt="logo" width="300" height="300"/></div>  |  <div style="text-align:center"><img src="static/img/Results.png" alt="logo" width="300" height="150"/></div>
+
+<div style="text-align:center">
+<h3>Input section</h3>  
+<img src="static/img/Front.png" alt="logo" width="300" height="300"/></div> 
+<br><br>
+
+
+
+
+<div style="text-align:center">
+<h3>Results section</h3>
+<img src="static/img/Results.png" alt="logo" width="300" height="80"/></div>
 
 
 <br><br>
