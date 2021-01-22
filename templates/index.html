@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+    	<title>igrader essay</title>
+    </head>
+
+
+	<body>
+        
+        {% extends "template.html" %}
+        {% block content %}
+        <!-- Logo -->
+        <section class="container center content" style="max-width:400px">
+            <div class="center">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" style="width:200px;height:200px;" />
+            </div>
+        </section>
+
+        <!-- Form to predict the grade of an essay -->
+        <section class="container center content" style="max-width:600px">
+        
+                <form action = "{{ url_for('predict')}}" method="post">
+                    <br>
+                    <p>Essay Prompt:</p>
+                <textarea id="prompt" name="prompt" rows="5" cols="70">{{Prompt}}</textarea>
+                 <br><br>
+                    <p>Essay Content:</p>
+               <textarea id="essay" name="essay" rows="10" cols="70">{{Essay}}</textarea><br>
+                <br>
+                <button type="submit" class="button">Correct</button>
+                </form>
+        </section> 
+
+
+
+		<section id="s-team" class="section center">
+
+        <div class="b-skills">
+				<b class="container">
+					<b><h2>Results</h2></b>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="skill-item center-block">
+								<div class="chart-container">
+									<div class="chart " data-percent="Word_count" data-bar-color="#23afe3">
+										<span class="percent">{{Word_count}}</span>
+									</div>
+								</div>
+
+								<p>Number of words</p>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="skill-item center-block">
+								<div class="chart-container">
+									<div class="chart " data-percent="Nbr_mistakes" data-bar-color="#a7d212">
+										<span class="percent">{{Nbr_mistakes}}</span>
+									</div>
+								</div>
+
+								<p>Number of mistakes</p>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="skill-item center-block">
+								<div class="chart-container">
+									<div class="chart " data-percent="Prompt_sim" data-bar-color="#ff4241">
+										<span class="percent">{{"{} %".format(Prompt_sim)}}</span>
+									</div>
+								</div>
+
+								<p>Coherence with prompt</p>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="skill-item center-block">
+								<div class="chart-container">
+									<div class="chart " data-percent="essay_grade" data-bar-color="#edc214">
+										<span class="percent">{{essay_grade}}</span>
+									</div>
+								</div>
+
+								<p>Over all grade</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </section>
+        <br><br><br>
+
+        {% endblock %}
+
+
+	</body>
+
+</html>

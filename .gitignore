@@ -1,0 +1,6 @@
+#ignore directories
+
+.DS_Store/
+.idea/
+__pycache__/ 
+models/

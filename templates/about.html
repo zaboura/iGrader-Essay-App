@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>About igrader essay</title>
+   </head>
+
+<body>    
+
+    {% extends "template.html" %}
+    {% block content %}
+    <br><br><br><br>
+        <section class="center content" style="max-width:600px"><br><br><br>
+            <h2 class="opacity"><i>About iGrader Essay</i></h2><br><br><br><br>
+            <p class="justify" style="font-family:courier;">IGrader Essay is an Automated Essay Grading systems platform based on AI, it is a tool that can help you grade essays in English. 
+            It is used in conjunction or even independently of a human grader. Handy for busy teachers, or to students having doubts. It needs your essay and its prompt, to give your deserved grade and some feedback. 
+            Released in 2021, by some motivated students in France, it is a friend who is never tired to help with your essays. </p>
+            <p class="opacity"><small>The tool will protect the privacy of the data provided by the user.<br>
+            <small>*The essays and the prompts will not be saved or used by the website.</small></small></p>
+        </section><br><br><br><br><br><br><br><br>
+
+        <section id="s-team" class="section center">
+            <div class="container center content">
+					<h2 class="opacity"><i>Sponsors</i></h2>
+            </div>
+
+        </section>
+
+         <section class="row-padding center light-grey">
+
+            <article class="third"><br><br>
+                <img src="{{ url_for('static', filename='img/univ-logo.png') }}" alt="univ-logo" width="200" height="100">
+            </article>
+
+            <article class="third"><br><br>
+                <img src="{{ url_for('static', filename='img/idmc-ul-logo-2020.png') }}" alt="IDMC-logo" width="200" height="100">
+            </article>
+
+            <article class="third">
+                <img src="{{ url_for('static', filename='img/Formations_TAL.png') }}" alt="TAL-logo" width="280" height="200">
+            </article>
+        </section><br><br><br><br><br><br><br><br><br><br>
+
+    {% endblock %}
+
+</body>
+
+</html>

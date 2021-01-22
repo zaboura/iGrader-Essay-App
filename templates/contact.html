@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Contact igrader essay</title>
+  </head>
+
+
+<body>
+        {% extends "template.html" %}
+        {% block content %}
+
+
+        <!-- Team Members -->
+        <br><br><br><br>
+        <div class="center">
+            <br>
+            <h1><b> <i> Our Team </i> </b></h1>
+        </div>
+        <br><br>
+
+        <section class="row-padding center light-grey">
+
+            <article class="third">
+                <br><br><br><br>
+                <img class="circular--square" src="{{ url_for('static', filename='img/abdel.jpeg') }}" alt="Abdelhak Zabour" style="width:200px;height:180px;"><br><br>
+                <p>Abdelhak Zabour</p>
+                <p style="font-family:courier;">I am a junior data scientist, specialized in machine learning and NLP with a mathematic background. 
+                I am seeking to contribute to the data science field and make AI more available to every human. I don't know everything, but I am hungry to learn anything about data science. 
+                My philosophy is "Never too late".</p>
+                <a href="https://www.linkedin.com/in/abdelhak-zabour-47580b110/"><i class="fa fa-linkedin"></i></a>
+                <a href="https://github.com/zaboura"><i class="fa fa-github"></i></a>
+                <a href="mailto:abdelhakzabour@gmail.com"><i class="fa fa-envelope-o"></i></a>
+            </article>
+            <article class="third">
+                <br><br><br><br>
+                
+                <img class="circular--square" src="{{ url_for('static', filename='img/jehona.png') }}" alt="Jehona Kryeziu" style="width:200px;height:180px;"><br><br>
+                <p>Jehona Kryeziu</p>
+                <p style="font-family:courier;">I am a junior data scientist, with a special interest in machine learning and NLP. Before diving into data science, I studied pure mathematics. 
+                I come from Kosovo, now located in France where I finished my master's studies and got my first professional experience. 
+                I love reading and traveling in my free time and spending time with my loved ones anytime.</p>
+                <a href="https://www.linkedin.com/in/jehona-kryeziu/"><i class="fa fa-linkedin"></i></a>
+                <a href="https://github.com/kryeziuj"><i class="fa fa-github"></i></a>
+                <a href="mailto:jehona.kryeziu01@gmail.com"><i class="fa fa-envelope-o"></i></a>
+            </article>
+            <article class="third">
+                <br><br><br><br>
+                <div class="circular--square">
+                <img class="circular--square" src="{{ url_for('static', filename='img/meziane.jpg') }}" alt="Meziane Bellahmer" style="width:200px;height:180px;"></div><br>
+                <p >Meziane Bellahmer</p>
+                <p style="font-family:courier;">I am a data scientist, Working on artificial intelligence since 2017, with a computer science background. 
+                Getting specialized in Natural Language Processing. Football and guitar in my free time.</p>
+                <a href="https://www.linkedin.com/in/meziane-bellahmer-6b012a115/"><i class="fa fa-linkedin"></i></a>
+                <a href="https://github.com/MezianeBellahmer"><i class="fa fa-github"></i></a>
+                <a href="mailto:mezianebellahmer@outlook.fr"><i class="fa fa-envelope-o"></i></a>
+            </article>
+        </section><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+        {% endblock %}
+</body>
+
+</html>
