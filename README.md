@@ -1,41 +1,34 @@
 # iGrader Essay
 
-![logo] (static/img/logo.png)
+<div style="text-align:center"><img src="static/img/logo.png" alt="logo" width="200"/></div>
 
 ## Automated Grading System for everyone
 
 IGrader Essay is an Automated Essay Grading systems platform based on AI, it is a tool that can help you grade essays in English. It is used in conjunction or even independently of a human grader. Handy for busy teachers, or to students having doubts. It needs your essay and its prompt, to give your deserved grade and some feedback. Released in 2021, by motivated students in France, it is a friend who is never tired to help with your essays.
 
 
-## Website picture
-
-
-
-
-## Use case example
-
-
-Input section              |  Results section
+Input section           |  Results section
 :-------------------------:|:-------------------------:
-![](static/img/Front.png)  |  ![](static/img/Results)
+<div style="text-align:center"><img src="static/img/Front.png" alt="logo" width="300" height="300"/></div>  |  <div style="text-align:center"><img src="static/img/Results.png" alt="logo" width="300" height="150"/></div>
 
-## Why *Igrader Essay* is different?
+
+<br><br>
+
+## Why *__iGrader Essay__* is different?
 
 In all reviewed automated grading systems, only the embedding technique was adopted, howerever, in our application we followed more complex path. We extract features that real techer based his grading on to train our multi-layer perceptron.
 find the list of some extracted features:
 
- *Number of mistakes
- *Number f words
- *Lexical divercity
- *Average sparce tree height
- *Inner similarity
- *Text coherence
- *Number of transition words
- *Prompt and essay relevance
+ * Number of mistakes
+ * Number of words
+ * Lexical divercity
+ * Average sparce tree height
+ * Inner similarity : We used *BERT* model to embedd essays' sentences and compute *cosine similarity distance* between them.
+ * Text coherence
+ * Number of transition words
+ * Prompt and essay relevance
  
-
-
-### Running locally 
+## Running locally 
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -73,7 +66,7 @@ If you want to contribute to a project and make it better, your help is very wel
 * **Jehona Kryeziu** - *Initial work* -
 * **Meziane Bellahmer** - *Initial work* -
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/zaboura/iGrader-Essay-App/graphs/contributors) who participated in this project.
 
 
 ## License
