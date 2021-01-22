@@ -10,7 +10,7 @@ IGrader Essay is an Automated Essay Grading systems platform based on AI, it is 
 
 <div style="text-align:center">
 <h3>Input section</h3>  
-<img src="static/img/Front.png" alt="logo" width="300" height="300"/></div> 
+<img src="static/img/Front.png" alt="logo"/></div> 
 <br><br>
 
 
@@ -18,7 +18,7 @@ IGrader Essay is an Automated Essay Grading systems platform based on AI, it is 
 
 <div style="text-align:center">
 <h3>Results section</h3>
-<img src="static/img/Results.png" alt="logo" width="300" height="80"/></div>
+<img src="static/img/Results.png" alt="logo"/></div>
 
 
 <br><br>
