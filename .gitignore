@@ -3,3 +3,6 @@
 .DS_Store/
 .idea/
 __pycache__/ 
+.DS_Store
+static/.DS_Store
+models/universal-sentence-encoder-large_5/.DS_Store
