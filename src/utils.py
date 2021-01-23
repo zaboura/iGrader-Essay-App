@@ -27,7 +27,6 @@ import language_check
 import faulthandler; faulthandler.enable()
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
-import matplotlib.pyplot as plt
 import re
 import spacy
 import nltk
@@ -42,12 +41,10 @@ import neuralcoref
 from nltk.corpus import stopwords
 from gensim.utils import simple_preprocess
 
-#nltk.download('stopwords')
+nltk.download('stopwords')
 nlp = spacy.load('en_core_web_lg')
 stop_words = stopwords.words('english')
 neuralcoref.add_to_pipe(nlp)
-# Customizing Matplotlib with style sheets
-plt.style.use('seaborn-colorblind')
 
 # Setup Pandas
 pd.set_option('display.width', 500)
@@ -56,11 +53,6 @@ pd.set_option('display.notebook_repr_html', True)
 pd.set_option('display.max_colwidth', 100)
 
 warnings.simplefilter("ignore", DeprecationWarning)
-
-# model_url = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large_5")
-# encoder_model = hub.KerasLayer(model_url, input_shape = [],
-#                             dtype = tf.string,
-#                             trainable = False)
 
 encoder_model = hub.load("models/universal-sentence-encoder-large_5")
 
@@ -240,187 +232,80 @@ def avrg_sents_length(input_data, input_feature_name):
     return [int(item) for item in list(map(truediv,nbr_tokens , nbr_sents))] # create new feature in data frame
     
 
-def mistakes_count(input_data, input_feature_name):
+def topic_detection_(input_df):
     
-    """Extract the features from the essay
+    """detect the topic of the essay
 
     Parameters
     ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
 
     Returns
     -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
-    
-    """
-
-    tool = language_check.LanguageTool('en-US')
-    N = len(input_data[input_feature_name])
-    grammar_mistakes_list = []
-    spelling_mistakes_list = []
-    #print("Counting mistakes...")
-    for i in range(N):
-        dict_mistakes = {'grammar_mistake_cout':0, 'spelling_mistakes_count':0}
-
-        temp_essay = input_data[input_feature_name][i].strip()  # removing white spaces
-        matches = tool.check(temp_essay)  # return mistakes before correction
-        for k in range(len(matches)):
-            if matches[k].category in ['Grammar']:
-                dict_mistakes['grammar_mistake_cout'] += 1
-            if matches[k].category in ['Possible Typo']:
-                dict_mistakes['spelling_mistakes_count'] += 1
-                
-        grammar_mistakes_list.append(dict_mistakes['grammar_mistake_cout'])
-        spelling_mistakes_list.append(dict_mistakes['spelling_mistakes_count'])
-
-
-    input_data['grammar_mistake_cout'] = grammar_mistakes_list
-    input_data['spelling_mistakes_count'] = spelling_mistakes_list
-    #print("DONE.")
-    
-    return input_data
-
-
-def topic_detection_(inputdf):
-    
-    """Extract the features from the essay
-
-    Parameters
-    ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
-
-    Returns
-    -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
+    list
+        a list of topics for essays
     
     """
     
     topic_detection = []
     
-    for essay in inputdf['corrected']:
+    for essay in input_df['corrected']:
         topic_detection.append(topic_detection_lda([essay]))
         
     return topic_detection
 
 
-def lexical_divercity_(inputdf):
+def lexical_divercity_(input_df):
     
     
-    """Extract the features from the essay
+    """detect lexical diversity of the essay
 
     Parameters
     ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
 
     Returns
     -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
+    list
+        a list of lexical divercity 
     
     """
     
     lexical_divr = []
     
-    for essay in inputdf['corrected']:
+    for essay in input_df['corrected']:
         lexical_divr.append(lexical_diversity(essay))
         
     return lexical_divr        
         
-def FK_score(inputdf):
+def FK_score(input_df):
     
-    """Extract the features from the essay
+    """compute fk-score of the essay
 
     Parameters
     ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
 
     Returns
     -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
+    list
+        a list of scores
     
     """
     
+    #empty list
     fk_score = []
-    for essay in inputdf['corrected']:
+    for essay in input_df['corrected']:
+        #set a threshold for number of tokens in the essay
         if len(re.findall(r'\w+', essay)) >= 110:
             fk_score.append(flesch_kincaid_score(essay))
         else:
             fk_score.append(0)
             
     return fk_score
-
-
-def prompt_simlarity(inputdf):
-    
-    """Extract the features from the essay
-
-    Parameters
-    ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
-
-    Returns
-    -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
-    
-    """
-    
-    prompt_sim = []
-
-    for (essay, prompt) in zip(inputdf['corrected'], inputdf['Prompt']):
-        
-        prompt = nlp(prompt)
-        prompt_sim.append(prompt.similarity(nlp(essay)))
-        
-    return prompt_sim
 
 
 # helper functions
@@ -446,27 +331,6 @@ def lemmatization(texts, allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
 
 def topic_detection_lda(essay):
     
-    """Extract the features from the essay
-
-    Parameters
-    ----------
-    text : str
-        The essay content
-    prompt : str
-        The prompt content
-
-    Returns
-    -------
-    dataframe
-        a dataframe of all extracted features
-    int
-        number of words in the essay 
-    float
-        percentage of similarity between the essay and its prompt
-    int
-        number of mistakes in the essay
-    
-    """
 
     id2word, texts, corpus = preprocessing_for_lda(essay)
     lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
@@ -481,6 +345,7 @@ def topic_detection_lda(essay):
                                                 per_word_topics=True)
     topic = lda_model.show_topic(0)
     topic_words = extract_main_words_from_topic(topic)
+    
     return topic_words
 
 
@@ -499,9 +364,11 @@ def preprocessing_for_lda(essay):
 
 
 def extract_main_words_from_topic(topic):
+    
     words_list = []
     for i in range(len(topic)):
         words_list.append(topic[i][0])
+        
     return words_list
 
 
@@ -511,28 +378,16 @@ def lexical_diversity(essay):
 
 # get the vocab size of the essays
 def get_vocabulary_size(essay):
+    
     vocab = set(w.lower() for w in essay if w.isalpha())
+    
     return len(vocab)
 
-
-def docsim_preprocessing(prompt, essays):
-    new_dict = {}
-    text1 = prompt
-    texts = essays
-    dictionary = corpora.Dictionary(texts)
-    feature_cnt = len(dictionary.token2id)
-    corpus = [dictionary.doc2bow(text) for text in texts]
-    tfidf = models.TfidfModel(corpus)
-    new_vec = dictionary.doc2bow(jieba.lcut(text1))
-    index = similarities.SparseMatrixSimilarity(tfidf[corpus], num_features = feature_cnt)
-    sim = index[tfidf[new_vec]]
-    new_dict = max(sim) 
-    return sim
-
-
 def flesch_kincaid_score(essay):
+    
     r = Readability(essay)
     f = r.flesch_kincaid()
+    
     return f.score
 
 
@@ -540,12 +395,11 @@ def BERT_Embedding(data, feature_name):
 
     embeddings = []
     for sentences in data[feature_name]:
-        #sleep(0.02)
+        
         essay_sentences = []
-        # Define a new example sentence with multiple meanings of the word "bank"
+        
         for text in sentences:
-            #print('\t \t \t \t sentences: ----->%d, %s \n \n'%(i, text))
-
+            
             # Add the special tokens.
             marked_text = "[CLS] " + text + " [SEP]"
 
@@ -583,7 +437,6 @@ def BERT_Embedding(data, feature_name):
 
         embeddings.append(essay_sentences)
         
-        #print(' shape : %d x %d'%(len(embeddings[k][0]),len(embeddings[k][1])))
 
     return embeddings
 
@@ -593,10 +446,16 @@ def essay_similarity(df, feature_name):
     """
     computes the mean of cosine similarity between all possible combination of sentences embedding
     
-    Returns Data frame with additional similarity columns 
-    
-    Parameters: input data frame , essay's sentences 
-    
+    Parameters: 
+    -----------
+         df: dataframe
+            input data frame 
+         feaature_name: str
+            essay's sentences 
+    Returns:
+    --------
+        list:
+            mean of cosine similarities of all sentences
     """
     
     similarity = []
@@ -611,7 +470,6 @@ def essay_similarity(df, feature_name):
                 mean_sim.append(cos_sim)
         similarity.append(np.mean(mean_sim))        
             
-    #print('Done')
     return similarity
     
 
