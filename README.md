@@ -37,7 +37,7 @@ find the list of some extracted features:
  * Number of transition words
  * Prompt and essay relevance
  
-## Running locally 
+## Running locally
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -54,10 +54,12 @@ pip3 install -r requirenment.txt
 ```
 
 At the end run the application locally:
+
 ```
 python app.py
 ```
-The default develpment URL is ```http://0.0.0.0:5000/``` 
+
+The default develpment URL is ```http://0.0.0.0:5000/```
 
 ## Built With
 
@@ -71,12 +73,11 @@ If you want to contribute to a project and make it better, your help is very wel
 
 ## Authors
 
-* **Abdelhak Zabour** - *Initial work* -
-* **Jehona Kryeziu** - *Initial work* -
-* **Meziane Bellahmer** - *Initial work* -
+* **Abdelhak Zabour**
+* **Jehona Kryeziu**
+* **Meziane Bellahmer**
 
 See also the list of [contributors](https://github.com/zaboura/iGrader-Essay-App/graphs/contributors) who participated in this project.
-
 
 ## License
 
