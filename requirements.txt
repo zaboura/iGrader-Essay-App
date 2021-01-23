@@ -2,8 +2,7 @@
 #conda create --name igrader-essay-env pyhon=3.6
 numpy==1.17 
 scipy==1.5.4
-pandas==1.1.4
-#matplotlib==3.3.3   
+pandas==1.1.4   
 scikit-learn==0.24.0
 flask==1.1.2   
 nltk==3.5
