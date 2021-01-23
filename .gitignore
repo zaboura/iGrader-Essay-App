@@ -1,5 +1,5 @@
 #ignore directories
-
+.vscode 
 .DS_Store/
 .idea/
 __pycache__/ 
