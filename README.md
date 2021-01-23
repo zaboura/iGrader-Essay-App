@@ -47,7 +47,7 @@ After cloning the repository in your local machine, create a cinda environment b
 conda create --name igrader-essay-env pyhon=3.6
 ```
 
-And then install the required dependencies by running the following line
+And then install the required dependencies within the ```igrader-essay-env``` envorenment by running the following line
 
 ```
 pip3 install -r requirenment.txt
