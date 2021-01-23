@@ -128,177 +128,141 @@ transition_words = ["in the first place", "again", "moreover", "to", "as well as
                     "as if", "so that","even if", "in order","in case that", "why", "what with and","just as so", "whether or","both and"]
 
 
-# def some_func(inputdf):
-
-#     topic_detection = []
-#     lexical_divr = []
-#     fk_score = []
-#     prompt_sim = []
-
-#     for (essay, prompt) in zip(inputdf['corrected'], inputdf['Prompt']):
-
-#         topic_detection.append(topic_detection_lda([essay]))
-#         lexical_divr.append(lexical_diversity(essay))
-#         if len(re.findall(r'\w+', essay)) >= 110:
-#             fk_score.append(flesch_kincaid_score(essay))
-#         else:
-#             fk_score.append(0)
-#         prompt = nlp(prompt)
-#         prompt_sim.append(prompt.similarity(nlp(essay)))
-
-#     return topic_detection, lexical_divr, fk_score, prompt_sim
-
-def topic_detection_(inputdf):
-    topic_detection = []
-    
-    for essay in inputdf['corrected']:
-        topic_detection.append(topic_detection_lda([essay]))
-        
-    return topic_detection
-
-
-def lexical_divercity_(inputdf):
-    
-    lexical_divr = []
-    
-    for essay in inputdf['corrected']:
-        lexical_divr.append(lexical_diversity(essay))
-        
-    return lexical_divr        
-        
-def FK_score(inputdf):
-    
-    fk_score = []
-    for essay in inputdf['corrected']:
-        if len(re.findall(r'\w+', essay)) >= 110:
-            fk_score.append(flesch_kincaid_score(essay))
-        else:
-            fk_score.append(0)
-            
-    return fk_score
-
-
-def prompt_simlarity(inputdf):
-    
-    prompt_sim = []
-
-    for (essay, prompt) in zip(inputdf['corrected'], inputdf['Prompt']):
-        
-        prompt = nlp(prompt)
-        prompt_sim.append(prompt.similarity(nlp(essay)))
-        
-    return prompt_sim
-
-    
-    
-    
-    
-    
-
-
-def distribution(inputdf):
-    
-    df = inputdf.groupby('topic').agg('count')
-    # Plot
-    essay_set = [i for i in range(1, 9)]
-    nbr_essay = df['essay']
-
-    # Figure Size
-    fig, ax = plt.subplots(figsize=(10, 7))
-    # Horizontal Bar Plot
-    ax.barh(essay_set, nbr_essay, color='orange')
-
-    # Remove axes splines
-    for s in ['top', 'bottom', 'left', 'right']:
-        ax.spines[s].set_visible(False)
-
-    # Remove x, y Ticks
-    ax.xaxis.set_ticks_position('none')
-    ax.yaxis.set_ticks_position('none')
-
-    # Add padding between axes and labels
-    ax.xaxis.set_tick_params(pad=5)
-    ax.yaxis.set_tick_params(pad=10)
-
-    # Add x, y gridlines
-    ax.grid(b=True, color='grey', linestyle='-', linewidth=0.5, alpha=0.2)
-
-    # Show top values
-    ax.invert_yaxis()
-
-    # Add annotation to bars
-    for i in ax.patches:
-        plt.text(i.get_width()+0.2, i.get_y()+0.5,
-                 str(round((i.get_width()), 2)),
-                 fontsize=15, fontweight='bold',
-                 color='black')
-    # Add Plot Title
-    ax.set_title('Essay count by essay set', loc='left', fontsize=15)
-
-    # Add Text watermark
-    fig.text(0.9, 0.15, 'Essay grading system', fontsize=15,
-             color='grey', ha='right', va='bottom',
-             alpha=0.9)
-
-    # Show Plot
-    plt.show()
-
 
 def words_count(input_data, input_feature_name):
     
+    """count number of words
+
+    Parameters
+    ----------
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
+    input_feature_name : str
+        feature name wanted to count number of it words
+
+    Returns
+    -------
+    list
+        a list of numbers of words for each essay
+    
+    """
+    
+    #empty list
     nbr_tokens = []
-    #print("Counting words...")
 
     for essay in input_data[input_feature_name]:
         nbr_tokens.append(len(essay.split())) 
-    #print("DONE.")
         
     return nbr_tokens
 
 
 def sentences(input_data, feature_name):
+    
+    """Extract the sentences of the essay
+
+    Parameters
+    ----------
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
+    input_feature_name : str
+        feature name wanted to extract sentences from
+
+    Returns
+    -------
+    list
+        a list of sentences of each essay
+    
+    """
+    
+    #empty list
     sentences = []
-    #print("Extracting sentences...")
+
     for essay in input_data[feature_name]:
         sentences.append([sen for sen in re.split('\.|!|\?', essay) if len(sen) > 2])
-    #print("DONE")
+    
     return sentences
-
-
-
 
 
 def sents_count(input_data, input_feature_name):
     
+    """count number of sentences of the essay
+
+    Parameters
+    ----------
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
+    input_feature_name : str
+        feature name wanted to count sentences for
+
+    Returns
+    -------
+    list
+        a list of numbers of sentences of each essay
+    
+    """
+    
+    #empty list
     nbr_sents = []
-    #print("Counting sentences...")
+
     for essay in input_data[input_feature_name]:
         nbr_sents.append(len([sent for sent in nltk.sent_tokenize(essay)]))
-    #print("DONE")
+    
     return nbr_sents 
     
 
-    
-
-
-
 def avrg_sents_length(input_data, input_feature_name):
     
+    
+    """extract average length of sentences of the essay
+
+    Parameters
+    ----------
+    input_df : dataframe
+        the input dataframe containing 'essay' feature
+    input_feature_name : str
+        feature name wanted to be processed
+
+    Returns
+    -------
+    list
+        a list average length of sentences of each essay
+    
+    """
+    
+    #empty lists
     nbr_sents = []
     nbr_tokens = []
-    #print("Counting average sentences' length...")
     
     for essay in nlp.pipe(input_data[input_feature_name], batch_size=100):
         nbr_sents.append(len([sent.string.strip() for sent in essay.sents]))
         nbr_tokens.append(len([e.text for e in essay]))
-    #print('DONE')
+    
     return [int(item) for item in list(map(truediv,nbr_tokens , nbr_sents))] # create new feature in data frame
     
-    
-
-
 
 def mistakes_count(input_data, input_feature_name):
+    
+    """Extract the features from the essay
+
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
+
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
 
     tool = language_check.LanguageTool('en-US')
     N = len(input_data[input_feature_name])
@@ -327,57 +291,136 @@ def mistakes_count(input_data, input_feature_name):
     return input_data
 
 
-
-
-
-def lemmatization(input_data, input_feature_name):
-    N = len(input_data[input_feature_name])
-    lemmatizer = WordNetLemmatizer()
-    lemmas_list = []
-    #print("Lemmatization...")
-    for i in range(N):
-        temp_essay = input_data[input_feature_name][i].strip()  # removing white spaces
-        temp_essay = temp_essay.lower().replace(r'/', ' ') #replace / by space
-        nltk_lemmas = ",".join("'" + item + "'" for item in [lemmatizer.lemmatize(token) for token in nltk.word_tokenize(temp_essay) if not token in STOP_WORDS and token.isalnum()])
-        lemmas_list.append(nltk_lemmas)
-        
-
-    # fill data frame
-    input_data['lemmas'] = lemmas_list
-    #print("DONE.")
-        
-    return input_data
-
-
-
-
-
-def nGrams(input_data, input_feature_name, n = 2):
+def topic_detection_(inputdf):
     
-    N = len(input_data[input_feature_name])
-    essay_ngram_list = []
-    #print("Extracting {}-grams...".format(n))
-    for i in range(N):
-        ngrams_list = []
+    """Extract the features from the essay
 
-        temp_essay = input_data[input_feature_name][i].strip()  # removing white spaces
-        temp_essay = temp_essay.replace(r'/', ' ') #replace / by space
-        nltk_sent = nltk.sent_tokenize(temp_essay)  # nbr of sentences in a essay
-        for sentence in nltk_sent:
-            # extracting ngrams
-            n_grams = ngrams(sentence.split(), n)
-            for grams in n_grams:
-                ngrams_list.append(grams)
-        essay_ngram_list.append(ngrams_list) #storing the list of ngrams for each essay
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
 
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
+    
+    topic_detection = []
+    
+    for essay in inputdf['corrected']:
+        topic_detection.append(topic_detection_lda([essay]))
         
-    input_data['{}_grams'.format(n)] = essay_ngram_list
+    return topic_detection
+
+
+def lexical_divercity_(inputdf):
+    
+    
+    """Extract the features from the essay
+
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
+
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
+    
+    lexical_divr = []
+    
+    for essay in inputdf['corrected']:
+        lexical_divr.append(lexical_diversity(essay))
+        
+    return lexical_divr        
+        
+def FK_score(inputdf):
+    
+    """Extract the features from the essay
+
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
+
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
+    
+    fk_score = []
+    for essay in inputdf['corrected']:
+        if len(re.findall(r'\w+', essay)) >= 110:
+            fk_score.append(flesch_kincaid_score(essay))
+        else:
+            fk_score.append(0)
             
-    #print("DONE.")
-    return input_data
+    return fk_score
 
 
+def prompt_simlarity(inputdf):
+    
+    """Extract the features from the essay
 
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
+
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
+    
+    prompt_sim = []
+
+    for (essay, prompt) in zip(inputdf['corrected'], inputdf['Prompt']):
+        
+        prompt = nlp(prompt)
+        prompt_sim.append(prompt.similarity(nlp(essay)))
+        
+    return prompt_sim
 
 
 # helper functions
@@ -386,13 +429,8 @@ def sent_to_words(sentences):
         yield(gensim.utils.simple_preprocess(str(sentence), deacc=True))
 
 
-        
-        
-        
 def remove_stopwords(texts):
     return [[word for word in simple_preprocess(str(doc)) if word not in stop_words] for doc in texts]
-
-
 
 
 def lemmatization(texts, allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
@@ -406,46 +444,29 @@ def lemmatization(texts, allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
 
 
 
-
-# main function
-def coherence_score_of_topic_lda(essay):
-    
-    data_words = list(sent_to_words(essay))
-    data_words_nostops = remove_stopwords(data_words)
-    #print('lemmatization of the data')
-    data_lemmatized = lemmatization(data_words_nostops, allowed_postags=[
-                                    'NOUN', 'ADJ', 'VERB', 'ADV'])
-    #print('create dictionary')
-    id2word = corpora.Dictionary(data_lemmatized)  # create dictionary
-    texts = data_words  # create corpus
-    #print('create a corpus')
-    corpus = [id2word.doc2bow(text) for text in texts]
-    #print('run LDA model')
-    lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
-                                                id2word=id2word,
-                                                num_topics=1,
-                                                random_state=100,
-                                                update_every=1,
-                                                chunksize=100,
-                                                passes=10,
-                                                alpha='auto',
-                                                per_word_topics=True)
-    #print('coherence model')
-    coherence_model_lda = CoherenceModel(
-        model=lda_model, texts=data_lemmatized, dictionary=id2word, coherence='c_v')
-    coherence_lda = coherence_model_lda.get_coherence()
-    #print('DONE')
-    return coherence_lda
-
-
-
-
-
-
-
-# other purpose functions
-
 def topic_detection_lda(essay):
+    
+    """Extract the features from the essay
+
+    Parameters
+    ----------
+    text : str
+        The essay content
+    prompt : str
+        The prompt content
+
+    Returns
+    -------
+    dataframe
+        a dataframe of all extracted features
+    int
+        number of words in the essay 
+    float
+        percentage of similarity between the essay and its prompt
+    int
+        number of mistakes in the essay
+    
+    """
 
     id2word, texts, corpus = preprocessing_for_lda(essay)
     lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
@@ -464,9 +485,6 @@ def topic_detection_lda(essay):
 
 
 
-
-
-
 def preprocessing_for_lda(essay):
     """Returns the dictionary, corpus and its term-document frequency representation."""
     data_words = list(sent_to_words(essay))
@@ -480,10 +498,6 @@ def preprocessing_for_lda(essay):
     return id2word, texts, corpus
 
 
-
-
-
-
 def extract_main_words_from_topic(topic):
     words_list = []
     for i in range(len(topic)):
@@ -491,24 +505,14 @@ def extract_main_words_from_topic(topic):
     return words_list
 
 
-
-
-# lexical diversity
 def lexical_diversity(essay):
     return len(set(essay)) / len(essay)
-
-
-
 
 
 # get the vocab size of the essays
 def get_vocabulary_size(essay):
     vocab = set(w.lower() for w in essay if w.isalpha())
     return len(vocab)
-
-
-
-
 
 
 def docsim_preprocessing(prompt, essays):
@@ -526,16 +530,10 @@ def docsim_preprocessing(prompt, essays):
     return sim
 
 
-
-
-
 def flesch_kincaid_score(essay):
     r = Readability(essay)
     f = r.flesch_kincaid()
     return f.score
-
-
-
 
 
 def BERT_Embedding(data, feature_name):
@@ -590,13 +588,6 @@ def BERT_Embedding(data, feature_name):
     return embeddings
 
 
-# def cosine_similarity(list1, list2):
-#     """
-#     Returns similarity distance
-#     """
-#     # Calculate the cosine similarity 
-#     cos =  1 - cosine(list1, list2)
-#     return cos
 
 def essay_similarity(df, feature_name):
     """
@@ -691,54 +682,6 @@ def subjectivity(df, feature_name):
     return subjectivity
 
 
-def ordinal_classification(X, y, model, params={}):
-    
-    (X_train, X_test, y_train, y_test) = train_test_split(X, y,          
-                                       test_size=.1, stratify=y,        
-                                       random_state= 3001)
-    pipeline = Pipeline([('column', StandardScaler()),
-                      ('model', model)])
-    print('Estimador: ', model)
-    grid = GridSearchCV(pipeline, params, 
-                      scoring='neg_mean_absolute_error', 
-                      n_jobs=-1, cv=10)
-    grid.fit(X_train, y_train)
-    pred = grid.best_estimator_.predict(X_test)
-    print('Mean Absolute Error: %1.4f' %
-        (metrics.mean_absolute_error(y_test, pred)))
-    print('Accuracy: %1.4f\n' %
-        (metrics.accuracy_score(y_test,   
-         np.round(pred).astype(int))))
-    print(metrics.classification_report(y_test,
-         np.round(pred).astype(int)))
-    print('\nDone!\n\n')
-
-
-def build_sequentialModel(data, layer_dim, list_activation):
-       
-    r"""build_sequentialModel
-    
-    build a sequential neural network
-    
-    Parameters
-    ----------
-    data : data as array
-    layer_dim : list of layers' dimension
-    list_activation: list of activation function
-      
-      
-    Returns
-    -------
-    model
-        
-    """
-    #define the model
-    model = Sequential()
-    model.add(Dense(layer_dim[0], input_dim = data.shape[1], activation = list_activation[0]))
-    for i in range(1,len(layer_dim)):
-        model.add(Dense(layer_dim[i], activation = list_activation[i]))
-    #model.summary()
-    return model
 
 
 def sentence_coherence(text, mean_prob_value):
@@ -884,49 +827,10 @@ def inverse_class_labels_reassign(score):
 
 
 
-def range_scaler(x, new_range = 100-0, old_min = -1, old_max = 1):
-    old_range = old_max - old_min
-    y = (((x - old_min) * new_range) / old_range)
-    return y
-
-
-def embed_with_BERT(text, model=model_BERT):
-
-    # Add the special tokens.
-    marked_text = "[CLS] " + text + " [SEP]"
-
-    # Split the sentence into tokens.
-    tokenized_text = tokenizer.tokenize(marked_text)
-
-    # Map the token strings to their vocabulary indeces.
-    indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
-
-    # Mark each of the tokens as belonging to sentence "1".
-    segments_ids = [1] * len(tokenized_text)
-
-    # Convert inputs to PyTorch tensors
-    tokens_tensor = torch.tensor([indexed_tokens])
-    segments_tensors = torch.tensor([segments_ids])
-
-    # Run the text through BERT, and collect all of the hidden states produced
-    # from all 12 layers.
-    with torch.no_grad():
-        outputs = model(tokens_tensor, segments_tensors)
-
-        # Evaluating the model will return a different number of objects based on
-        # how it's  configured in the `from_pretrained` call earlier. In this case,
-        # becase we set `output_hidden_states = True`, the third item will be the
-        # hidden states from all layers.
-        hidden_states = outputs[2]
-
-    # `token_vecs` is a tensor with shape [#words x 768]
-    token_vecs = hidden_states[-2][0]
-
-    # Calculate the average of all token vectors.
-    sentence_embedding = torch.mean(token_vecs, dim=0)
-
-    return sentence_embedding.numpy()
-#################################################################################################
+# def range_scaler(x, new_range = 100-0, old_min = -1, old_max = 1):
+#     old_range = old_max - old_min
+#     y = (((x - old_min) * new_range) / old_range)
+#     return y
 
 
 
@@ -943,30 +847,6 @@ def apply_relevance_to_prompt(input_df, essay_column, prompt_column, model):
     res = input_df.apply(lambda x: relevance_to_prompt(x[essay_column], x[prompt_column], model), axis = 1)
     
     return res
-
-
-
-
-
-
-################################################################################################
-
-
-
-
-# def relevance_to_prompt(essay, prompt, model=model_BERT):
-#     embedded_essay = embed_with_BERT(essay)
-#     embedded_prompt = embed_with_BERT(prompt)
-#
-#     cos_sim = dot(embedded_essay, embedded_prompt) / (norm(embedded_essay) * norm(embedded_prompt))
-#     return cos_sim
-#
-#
-# def apply_relevance_to_prompt(input_df, essay_column, prompt_column, model=encoder_model):
-#     res = input_df.apply(lambda x: relevance_to_prompt(x[essay_column], x[prompt_column], model), axis=1)
-#
-#     return res
-
 
 
 def noun_counter(essay):
