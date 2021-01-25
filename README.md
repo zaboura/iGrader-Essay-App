@@ -25,29 +25,31 @@ IGrader Essay is an Automated Essay Grading systems platform based on AI, it is 
 
 ## Why *__iGrader Essay__* is different?
 
-In all reviewed automated grading systems, only the embedding technique was adopted, howerever, in our application we followed more complex path. We extract features that real techer based his grading on to train our multi-layer perceptron.
-find the list of some extracted features:
+In all reviewed automated grading systems, only the embedding technique was adopted, however, in our application, we followed the more complex path. We extract features that a real teacher based grading on to train our multi-layer perceptron.
+Find the list of some extracted features:
 
- * Number of mistakes
- * Number of words
- * Lexical divercity
- * Average sparce tree height
- * Inner similarity : We used *BERT* model to embedd essays' sentences and compute *cosine similarity distance* between them.
- * Text coherence
- * Number of transition words
- * Prompt and essay relevance
- 
+ * Number of mistakes.
+ * Number of words.
+ * Lexical diversity.
+ * Average sparse tree height
+ * Inner similarity: We used the *BERT* model to embed essays' sentences and compute *cosine similarity distance* between them.
+ * Text coherence: GPT-2 language model used to compute the probability.
+ * Number of transition words: Count of linking words.
+ * Prompt and essay relevance: Universal-sentence-encoder-large (v5) used to compute similarity.
+ * .
+ * .
+ * etc 
 ## Running locally
 
 A step by step series of examples that tell you how to get a development env running
 
-After cloning the repository in your local machine, create a cinda environment by running the following line:
+After cloning the repository in your local machine, create a conda environment by running the following line:
 
 ```
 conda create --name igrader-essay-env pyhon=3.6
 ```
 
-And then install the required dependencies within the ```igrader-essay-env``` envorenment by running the following line
+And then install the required dependencies within the ```igrader-essay-env``` environment by running the following line
 
 ```
 pip3 install -r requirenment.txt
@@ -59,7 +61,7 @@ At the end run the application locally:
 python app.py
 ```
 
-The default develpment URL is ```http://0.0.0.0:5000/```
+The default develpment URL is [```http://0.0.0.0:5000/```](http://0.0.0.0:5000/)
 
 ## Built With
 
@@ -69,7 +71,7 @@ The default develpment URL is ```http://0.0.0.0:5000/```
 
 ## Contributing
 
-If you want to contribute to a project and make it better, your help is very welcome. Contributing is also a great way to learn more about social coding on Github, new technologies and and their ecosystems and how to make constructive, helpful bug reports, feature requests and the noblest of all contributions: a good, clean pull request.
+If you want to contribute to a project and make it better, your help is very welcome. Contributing is also a great way to learn more about social coding on Github, new technologies and their ecosystems, how to make constructive, helpful bug reports, feature requests, and the noblest of all contributions: a good, clean pull request.
 
 ## Authors
 
