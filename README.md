@@ -61,7 +61,7 @@ At the end run the application locally:
 python app.py
 ```
 
-The default develpment URL is [```http://0.0.0.0:5000/```](http://0.0.0.0:5000/)
+The default develpment URL is [```http://127.0.0.1:5000/```](http://127.0.0.1:5000/)
 
 ## Built With
 
