@@ -1,29 +1,21 @@
 # import libraries
 from __future__ import print_function
 from __future__ import division
-from nltk.stem import WordNetLemmatizer
+#from nltk.stem import WordNetLemmatizer
 from nltk import ngrams, word_tokenize
-from gensim.models import CoherenceModel
+#from gensim.models import CoherenceModel
 from textblob import TextBlob
-from spacy.lang.en.stop_words import STOP_WORDS
+#from spacy.lang.en.stop_words import STOP_WORDS
 from operator import truediv
 from transformers import BertTokenizer, BertModel
 from scipy.spatial import distance
 from pytorch_transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch.nn.functional as F
-from sklearn.model_selection import GridSearchCV
-from sklearn.pipeline import Pipeline
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense
 from readability import Readability
-from joblib import dump, load
 from spacy.matcher import PhraseMatcher
 from numpy import dot
 from numpy.linalg import norm
-import language_check
+#import language_check
 import faulthandler; faulthandler.enable()
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
@@ -47,15 +39,16 @@ stop_words = stopwords.words('english')
 neuralcoref.add_to_pipe(nlp)
 
 # Setup Pandas
-pd.set_option('display.width', 500)
-pd.set_option('display.max_columns', 100)
-pd.set_option('display.notebook_repr_html', True)
-pd.set_option('display.max_colwidth', 100)
+# pd.set_option('display.width', 500)
+# pd.set_option('display.max_columns', 100)
+# pd.set_option('display.notebook_repr_html', True)
+# pd.set_option('display.max_colwidth', 100)
 
 warnings.simplefilter("ignore", DeprecationWarning)
 
 encoder_model = hub.load("models/universal-sentence-encoder-large_5")
 
+# Load pre-trained model BERT
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 # Load pre-trained model tokenizer (vocabulary)
@@ -681,14 +674,6 @@ def inverse_class_labels_reassign(score):
         return 4
     else:
         return 5
-
-
-
-
-# def range_scaler(x, new_range = 100-0, old_min = -1, old_max = 1):
-#     old_range = old_max - old_min
-#     y = (((x - old_min) * new_range) / old_range)
-#     return y
 
 
 

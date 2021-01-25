@@ -2,12 +2,10 @@
 
 <div style="text-align:center"><img src="static/img/logo.png" alt="logo" width="200"/></div>
 
-<sub><sup><sup style="color:gray">Logo designed by *Mohammed EL Aziz*</sup></sub></sub>
+<sub><sup><sup style="color:gray">* Logo designed by *Mohammed EL Aziz*</sup></sub></sub>
 ## Automated Grading System for everyone
 
 IGrader Essay is an Automated Essay Grading systems platform based on AI, it is a tool that can help you grade essays in English. It is used in conjunction or even independently of a human grader. Handy for busy teachers, or to students having doubts. It needs your essay and its prompt, to give your deserved grade and some feedback. Released in 2021, by motivated students in France, it is a friend who is never tired to help with your essays.
-
-
 
 <div style="text-align:center">
 <h3>Input section</h3>  
@@ -34,7 +32,7 @@ Find the list of some extracted features:
  * Lexical diversity.
  * Average sparse tree height
  * Inner similarities: We used the *BERT* model to embed essays' sentences and compute *cosine similarity distance* between them.
- * Text coherence: GPT-2 language model used to compute the probability.
+ * Text coherence Score: GPT-2 language model used to compute the probability.
  * Number of transition words: Count of linking words.
  * Prompt and essay relevance: Universal-sentence-encoder-large (v5) used to compute similarity.
  * .
