@@ -1,6 +1,14 @@
 # import libraries
 from __future__ import print_function
 from __future__ import division
+import warnings
+def function_that_warns():
+    warnings.warn("deprecated", DeprecationWarning)
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    function_that_warns()  # this will not show a warning
+    
 #from nltk.stem import WordNetLemmatizer
 from nltk import ngrams, word_tokenize
 #from gensim.models import CoherenceModel
@@ -12,6 +20,7 @@ from scipy.spatial import distance
 from pytorch_transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch.nn.functional as F
 from readability import Readability
+from joblib import load
 from spacy.matcher import PhraseMatcher
 from numpy import dot
 from numpy.linalg import norm
@@ -45,7 +54,7 @@ neuralcoref.add_to_pipe(nlp)
 # pd.set_option('display.max_colwidth', 100)
 
 warnings.simplefilter("ignore", DeprecationWarning)
-
+# Load universal sentence encoder
 encoder_model = hub.load("models/universal-sentence-encoder-large_5")
 
 # Load pre-trained model BERT

@@ -46,9 +46,9 @@ def pipeline_(text, prompt):
     # count the number of words
     df['word_count'] = word_count = words_count(df, 'essay')
     # extract average sentence length, sentence's count, and sentences
-    df['avrg_sents_length'] = avrg_sents_length(df, 'essay')
-    df['sents_count'] = sents_count(df, 'essay')
-    df['sents'] = sentences(df, 'essay')
+    df['avrg_sents_length'] = avrg_sents_length(df, 'corrected')
+    df['sents_count'] = sents_count(df, 'corrected')
+    df['sents'] = sentences(df, 'corrected')
     # detect the topic of the essay
     df['topic_detection'] = topic_detection_(df)
     #measure the lexical diversity
