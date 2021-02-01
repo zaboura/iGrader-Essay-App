@@ -45,13 +45,13 @@ A step by step series of examples that tell you how to get a development env run
 After cloning the repository in your local machine, create a conda environment by running the following line:
 
 ```
-conda create --name igrader-essay-env pyhon=3.6
+conda create --name igrader-essay-env python=3.6
 ```
 
 And then install the required dependencies within the ```igrader-essay-env``` environment by running the following line
 
 ```
-pip3 install -r requirenment.txt
+pip3 install -r requirenments.txt
 ```
 
 At the end run the application locally:
