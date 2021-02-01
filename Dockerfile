@@ -11,6 +11,7 @@ RUN python -m spacy download en_core_web_lg
 
 COPY . /igraderapp
 
-#EXPOSE 5000
 
 CMD ["python","app.py"]
+
+EXPOSE 80
