@@ -1,6 +1,6 @@
 
-#conda create --name igrader-essay-env pyhon=3.6
-numpy==1.17 
+#conda create --name igrader-essay-env python=3.6
+numpy==1.18.5 
 scipy==1.5.4
 pandas==1.1.4   
 scikit-learn==0.24.0
@@ -8,7 +8,7 @@ flask==1.1.2
 nltk==3.5
 textblob==0.15.3
 gensim==3.8.3.   
-spacy==2.2.2
+spacy==2.1.0
 transformers==4.2.1. 
 tensorflow==2.3.1
 keras==2.4.3  
@@ -19,4 +19,4 @@ tensorflow-hub==0.10.0
 language-check==1.1
 torch==1.7.0
 pytorch-transformers==1.2.0
-#https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.1.0/en_core_web_lg-2.1.0.tar.gz
+https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.1.0/en_core_web_lg-2.1.0.tar.gz
