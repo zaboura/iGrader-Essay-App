@@ -51,7 +51,7 @@ conda create --name igrader-essay-env python=3.6
 And then install the required dependencies within the ```igrader-essay-env``` environment by running the following line
 
 ```
-pip3 install -r requirenments.txt
+pip3 install -r requirements.txt
 ```
 
 At the end run the application locally:
