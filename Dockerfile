@@ -3,6 +3,7 @@ FROM python:3.6
 
 WORKDIR /igraderapp
 
+
 COPY /requirements.txt /igraderapp
 
 RUN pip install --upgrade pip

@@ -4,9 +4,9 @@ from pickle import load
 from pandas.core.frame import DataFrame
 from src import *
 import language_check
-
-    
-    
+# from numba import jit, cuda
+   
+# @cuda.jit       
 def pipeline_(text, prompt):
     
     """Extract the features from the essay
