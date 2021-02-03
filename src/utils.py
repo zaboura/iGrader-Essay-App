@@ -42,7 +42,7 @@ import neuralcoref
 from nltk.corpus import stopwords
 from gensim.utils import simple_preprocess
 
-#nltk.download('stopwords')
+nltk.download('stopwords')
 nlp = spacy.load('en_core_web_lg')
 stop_words = stopwords.words('english')
 neuralcoref.add_to_pipe(nlp)

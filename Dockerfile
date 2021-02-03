@@ -8,7 +8,7 @@ COPY /requirements.txt /igraderapp
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-#RUN python -m spacy download en_core_web_lg
+RUN python -m nltk.downloader stopwords
 
 COPY . /igraderapp
 
